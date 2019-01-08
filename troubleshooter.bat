@@ -1,19 +1,19 @@
 @echo off
 REM All-in-one Troubleshooting Script. COPY THIS FILE TO YOUR DESKTOP AND RUN FROM DESKTOP
 REM This troubleshooter was designed for Windows 7 and newer.
-REM This file was created by James Kasparek [nekkron@gmail.com] (v 1.0)
+REM This file was created by nekkron [https://github.com/nekkron/troubleshooter/] (v 1.0)
 
 :Set Variables
 %systemdrive%
-md %troublepath%
-set troublepath=%temp%\troubleshooter
-set LOG=%userprofile%\Desktop\%COMPUTERNAME%.txt
-md %OneDrive%\support
-set support=%OneDrive%\support\
+set troublepath="%temp%\troubleshooter"
+md %troublepath%  0>nul
+set LOG="%userprofile%\Desktop\%COMPUTERNAME%.txt"
+md "%OneDrive%\support"  0>nul
+set support="%OneDrive%\support\"
 set SERIAL=wmic bios get serialnumber
 set HDDinfo=wmic DiskDrive get Name,Size,Model
 set PRINTERSinstalled=wmic Printer list Status
-set WHATSshared=wmic Share list Brief
+set WHATshared=wmic Share list Brief
 set InstalledSoftware=wmic Product get Name,Version,Vendor,InstallDate
 
 title Computer Troubleshooting Assistant - DO NOT CLOSE THIS WINDOW
@@ -36,7 +36,7 @@ echo %time% >> %LOG%
 echo. >> %LOG%
 
 echo Serial Number: >> %LOG%
-echo %SERIAL% >> %LOG%
+%SERIAL% | more +1 >> %LOG%
 echo. >> %LOG%
 
 echo ===============================SYSTEM INFO================================ >> %LOG%
@@ -46,17 +46,20 @@ echo. >> %LOG%
 
 echo Hard Disk Drive Information >> %LOG%
 echo --------------------------- >> %LOG%
-echo %HDDinfo% >> %LOG%
+echo Model                    Name                Size >> %LOG%
+%HDDinfo% | more +1 >> %LOG%
 echo. >> %LOG%
 
 echo Printers Installed >> %LOG%
 echo ------------------ >> %LOG%
-echo %PRINTERSinstalled% >> %LOG%
+echo Name                                        Status >> %LOG%
+%PRINTERSinstalled% | more +1 >> %LOG%
 echo. >> %LOG%
 
 echo Active Share Drives >> %LOG%
 echo ------------------- >> %LOG%
-echo %WHATSshared% >> %LOG%
+echo Description     Name          Path >> %LOG%
+%WHATshared% | more +1 >> %LOG%
 echo. >> %LOG%
 
 echo ==============================USER ACCOUNTS=============================== >> %LOG%
@@ -71,7 +74,7 @@ echo. >> %LOG%
 echo Collecting Information on System Dumps (Blue Screens)
 
 dir "%windir%\MiniDump" >> %LOG% 
-xcopy "%windir%\Minidump\" "%support%" /y/c/r/h 1>nul
+xcopy "%windir%\Minidump\" "%support%" /y/c/r/h 0>nul
 rem Add in a way instead of giving an error on the CMD window, to 'ignore' the null
 echo. >> %LOG%
 
