@@ -1,6 +1,6 @@
 @echo off
 REM All-in-one Troubleshooting Script. COPY THIS FILE TO YOUR DESKTOP AND RUN FROM DESKTOP
-REM This troubleshooter was designed for Windows 7 and older.
+REM This troubleshooter was designed for Windows 7 and newer.
 REM This file was created by James Kasparek [nekkron@gmail.com] (v 1.0)
 
 :Set Variables
