@@ -9,7 +9,7 @@ md %troublepath%
 set troublepath=%temp%\troubleshooter
 set LOG=%userprofile%\Desktop\%COMPUTERNAME%.txt
 md %OneDrive%\support
-set support=%OneDrive%\support
+set support=%OneDrive%\support\
 set SERIAL=wmic bios get serialnumber
 set HDDinfo=wmic DiskDrive get Name,Size,Model
 set PRINTERSinstalled=wmic Printer list Status
